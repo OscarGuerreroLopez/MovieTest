@@ -2,8 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { MovieContext } from "../../context";
 import { Flex, Text } from "rebass";
+import { v4 as uuidv4 } from "uuid";
 
 import { CustomCard } from "../../components";
+import { MovieRows, MovieHeader } from "./movieRow";
 
 export const Movies = (): JSX.Element => {
   const { movies } = useContext(MovieContext);
@@ -34,9 +36,12 @@ export const Movies = (): JSX.Element => {
             </Text>
           </Flex>
 
-          <Flex>
+          <Flex flexWrap="wrap">
+            <MovieHeader />
             {movies?.map((movie: IMovies) => {
-              return <Text key={movie.imdbID}>{movie.Title}</Text>;
+              const key = uuidv4();
+
+              return <MovieRows {...movie} key={key} />;
             })}
           </Flex>
         </CustomCard>
