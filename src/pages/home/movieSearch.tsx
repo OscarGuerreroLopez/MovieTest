@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, useContext } from "react";
+import React, { useState, FormEvent, useContext, KeyboardEvent } from "react";
 import { Text, Flex, Box, Button } from "rebass";
 import { Input } from "@rebass/forms";
 
@@ -9,12 +9,22 @@ import { MovieContext } from "../../context";
 export const MovieSearch = (): JSX.Element => {
   const [movie, setMovie] = useState("");
   const { setMovies } = useContext(MovieContext);
-
   const [axiosError, setAxiosError] = useState(false);
+  const [noMovies, setNoMovies] = useState(false);
 
   const onChange = (e: FormEvent<HTMLInputElement>): void => {
     e.preventDefault();
     setMovie(e.currentTarget.value);
+  };
+
+  const noMoviesFound = (): void => {
+    setNoMovies(true);
+    setMovies([]);
+  };
+
+  const MoviesFound = (data: IMovies[]): void => {
+    setNoMovies(false);
+    setMovies(data);
   };
 
   const onClick = async (): Promise<void> => {
@@ -24,7 +34,7 @@ export const MovieSearch = (): JSX.Element => {
         method: "GET",
       });
       setAxiosError(false);
-      setMovies(response.Search);
+      response.Search ? MoviesFound(response.Search) : noMoviesFound();
     } catch (error) {
       setAxiosError(true);
       console.log(error);
@@ -71,7 +81,6 @@ export const MovieSearch = (): JSX.Element => {
           <Box
             sx={{
               width: ["100%", "100%", "100%", "100%", "100%", "50%", "50%"],
-              bg: "yellow",
             }}
           >
             <Input
@@ -80,6 +89,13 @@ export const MovieSearch = (): JSX.Element => {
               type="movie"
               placeholder="Star Wars"
               onChange={onChange}
+              onKeyDown={(e: KeyboardEvent<HTMLInputElement>): void => {
+                if (e.keyCode === 13 || e.key === "Enter") {
+                  onClick();
+                } else {
+                  setNoMovies(false);
+                }
+              }}
             />
           </Box>
           <Box
@@ -110,6 +126,7 @@ export const MovieSearch = (): JSX.Element => {
         {axiosError && (
           <Flex justifyContent="center">
             <Text
+              variant="osquitar.secondary"
               sx={{
                 fontSize: ["1", "2", "2", "3", "4", "5", "5"],
                 fontWeight: "bold",
@@ -118,6 +135,21 @@ export const MovieSearch = (): JSX.Element => {
               }}
             >
               There was an error fetching the movies, please check console
+            </Text>
+          </Flex>
+        )}
+        {noMovies && (
+          <Flex justifyContent="center">
+            <Text
+              variant="osquitar.primary"
+              sx={{
+                fontSize: ["1", "2", "2", "3", "4", "5", "5"],
+                width: "100%",
+                textAlign: "center",
+              }}
+            >
+              We were not able to find any movies with {movie}. Please redefine
+              your search
             </Text>
           </Flex>
         )}

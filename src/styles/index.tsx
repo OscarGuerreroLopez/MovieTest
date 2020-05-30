@@ -106,11 +106,11 @@ export const theme = {
   },
   osquitar: {
     primary: {
-      color: "pink",
-      bg: "orange",
+      color: "blue",
+      bg: "#ECE5E3",
     },
     secondary: {
-      color: "grey",
+      color: "red",
       bg: "yellow",
     },
   },
