@@ -39,9 +39,7 @@ export const Movies = (): JSX.Element => {
           <Flex flexWrap="wrap">
             <MovieHeader />
             {movies?.map((movie: IMovies) => {
-              const key = uuidv4();
-
-              return <MovieRows {...movie} key={key} />;
+              return <MovieRows {...movie} key={uuidv4()} />;
             })}
           </Flex>
         </CustomCard>

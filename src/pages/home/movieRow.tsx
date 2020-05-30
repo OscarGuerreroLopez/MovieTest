@@ -1,15 +1,10 @@
 import React, { FC } from "react";
 import { Flex, Box, Text } from "rebass";
 
-interface IProps extends IMovies {
-  key: string;
-}
-
-export const MovieRows: FC<IProps> = (props): JSX.Element => {
+export const MovieRows: FC<IMovies> = (props): JSX.Element => {
   return (
     <Flex
       flexWrap="wrap"
-      key={props.key}
       sx={{
         width: "100%",
         mt: 2,
@@ -25,16 +20,16 @@ export const MovieRows: FC<IProps> = (props): JSX.Element => {
           Preview
         </Text>
       </Box>
-      <Box width="20%">
-        <Text textAlign="center">{props.Title}</Text>
+      <Box width="40%">
+        <Text>{props.Title}</Text>
       </Box>
-      <Box width="20%">
+      <Box width="10%">
         <Text textAlign="center">{props.Year}</Text>
       </Box>
-      <Box width="20%">
+      <Box width="15%">
         <Text textAlign="center">Button</Text>
       </Box>
-      <Box width="20%">
+      <Box width="15%">
         <Text textAlign="center">button</Text>
       </Box>
     </Flex>
@@ -48,22 +43,23 @@ export const MovieHeader: FC = (): JSX.Element => {
       sx={{
         width: "100%",
         mt: 2,
+        mb: 2,
+        borderColor: "black",
+        border: 3,
       }}
     >
-      <Box width="20%">
-        <Text textAlign="center"></Text>
-      </Box>
-      <Box width="20%">
+      <Box width="20%" />
+      <Box width="40%">
         <Text textAlign="center">Title</Text>
       </Box>
-      <Box width="20%">
+      <Box width="10%">
         <Text textAlign="center">Year</Text>
       </Box>
-      <Box width="20%">
+      <Box width="15%">
         <Text textAlign="center">Details</Text>
       </Box>
-      <Box width="20%">
-        <Text textAlign="center">Add to favorite</Text>
+      <Box width="15%">
+        <Text textAlign="center">Add to favorites</Text>
       </Box>
     </Flex>
   );

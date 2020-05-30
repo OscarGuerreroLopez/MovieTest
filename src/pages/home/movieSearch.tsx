@@ -10,31 +10,37 @@ export const MovieSearch = (): JSX.Element => {
   const [movie, setMovie] = useState("");
   const { setMovies } = useContext(MovieContext);
   const [axiosError, setAxiosError] = useState(false);
-  const [noMovies, setNoMovies] = useState(false);
+  const [noMovies, setNoMovies] = useState("");
 
   const onChange = (e: FormEvent<HTMLInputElement>): void => {
     e.preventDefault();
     setMovie(e.currentTarget.value);
   };
 
-  const noMoviesFound = (): void => {
-    setNoMovies(true);
+  const noMoviesFound = (error: string): void => {
+    console.log("@+++++@noMoviesFound", error);
+
+    setNoMovies(error);
     setMovies([]);
   };
 
   const MoviesFound = (data: IMovies[]): void => {
-    setNoMovies(false);
+    console.log("@+++++@MoviesFound");
+    setNoMovies("");
     setMovies(data);
   };
 
   const onClick = async (): Promise<void> => {
     const params = `&s=${movie}&type=movie`;
     try {
-      const response = await axiosFetcher(params, {
+      const result = await axiosFetcher(params, {
         method: "GET",
       });
+
+      const { Response, Search, Error } = result;
+
       setAxiosError(false);
-      response.Search ? MoviesFound(response.Search) : noMoviesFound();
+      Response === "False" ? noMoviesFound(Error) : MoviesFound(Search);
     } catch (error) {
       setAxiosError(true);
       console.log(error);
@@ -93,7 +99,7 @@ export const MovieSearch = (): JSX.Element => {
                 if (e.keyCode === 13 || e.key === "Enter") {
                   onClick();
                 } else {
-                  setNoMovies(false);
+                  setNoMovies("");
                 }
               }}
             />
@@ -139,7 +145,7 @@ export const MovieSearch = (): JSX.Element => {
           </Flex>
         )}
         {noMovies && (
-          <Flex justifyContent="center">
+          <Flex justifyContent="center" flexWrap="wrap">
             <Text
               variant="osquitar.primary"
               sx={{
@@ -148,8 +154,18 @@ export const MovieSearch = (): JSX.Element => {
                 textAlign: "center",
               }}
             >
-              We were not able to find any movies with {movie}. Please redefine
-              your search
+              Search for {`"${movie}"`} returned this error: {noMovies}...
+            </Text>
+            <Text
+              sx={{
+                fontSize: ["1", "2", "2", "3", "4", "5", "5"],
+                width: "100%",
+                textAlign: "center",
+                color: "red",
+                fontWeight: "bold",
+              }}
+            >
+              Please redefine your search
             </Text>
           </Flex>
         )}
