@@ -105,22 +105,22 @@ export const MovieSearch = (): JSX.Element => {
                 SEARCH
               </Button>
             </Flex>
-            {axiosError && (
-              <Flex justifyContent="center">
-                <Text
-                  sx={{
-                    fontSize: ["1", "2", "2", "3", "4", "5", "5"],
-                    fontWeight: "bold",
-                    width: "100%",
-                    textAlign: "center",
-                  }}
-                >
-                  There was an error fetching the movies, please check console
-                </Text>
-              </Flex>
-            )}
           </Box>
         </Flex>
+        {axiosError && (
+          <Flex justifyContent="center">
+            <Text
+              sx={{
+                fontSize: ["1", "2", "2", "3", "4", "5", "5"],
+                fontWeight: "bold",
+                width: "100%",
+                textAlign: "center",
+              }}
+            >
+              There was an error fetching the movies, please check console
+            </Text>
+          </Flex>
+        )}
       </Flex>
     </CustomCard>
   );
