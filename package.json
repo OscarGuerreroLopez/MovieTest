@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.9.0",
+    "@rebass/forms": "^4.0.6",
     "@svgr/webpack": "4.3.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -14,6 +15,7 @@
     "@types/react-dom": "^16.9.0",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
+    "axios": "^0.19.2",
     "babel-eslint": "10.1.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "8.1.0",
@@ -24,6 +26,7 @@
     "css-loader": "3.4.2",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
+    "envalid": "^6.0.2",
     "eslint": "^6.6.0",
     "eslint-config-react-app": "^5.2.1",
     "eslint-loader": "3.0.3",
@@ -52,12 +55,16 @@
     "react-app-polyfill": "^1.0.6",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-spinners": "^0.8.3",
+    "rebass": "^4.0.7",
     "resolve": "1.15.0",
     "resolve-url-loader": "3.1.1",
     "sass-loader": "8.0.2",
     "semver": "6.3.0",
     "style-loader": "0.23.1",
     "terser-webpack-plugin": "2.3.5",
+    "theme-ui": "^0.3.1",
     "ts-pnp": "1.1.6",
     "typescript": "~3.7.2",
     "url-loader": "2.3.0",
@@ -69,7 +76,10 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "lint:eslint": "eslint --quiet --fix",
+    "lint:tsc": "tsc --noEmit",
+    "lint": "yarn lint:tsc && yarn lint:eslint src/**/*.{js,ts,tsx}"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -140,5 +150,14 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "@types/react-router-dom": "^5.1.5",
+    "@types/rebass": "^4.0.6",
+    "@types/rebass__forms": "^4.0.2",
+    "@types/theme-ui": "^0.3.2",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "prettier": "^2.0.5"
   }
 }
