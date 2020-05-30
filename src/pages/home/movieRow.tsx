@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Flex, Box, Text } from "rebass";
+import { Flex, Box, Text, Button } from "rebass";
 
 export const MovieRows: FC<IMovies> = (props): JSX.Element => {
   return (
@@ -8,11 +8,21 @@ export const MovieRows: FC<IMovies> = (props): JSX.Element => {
       sx={{
         width: "100%",
         mt: 2,
+        borderRadius: 2,
+        boxShadow: "0 0 16px rgba(0, 0, 0, .25)",
       }}
     >
-      <Box width="20%">
+      <Box
+        sx={{
+          width: ["100%", "100%", "100%", "100%", "100%", "20%"],
+        }}
+      >
         <Text
-          textAlign="center"
+          sx={{
+            textAlign: "center",
+            pt: 2,
+            fontSize: ["1", "2", "3", "4", "5", "3", "4"],
+          }}
           onClick={(): void => {
             console.log(props.Poster);
           }}
@@ -20,47 +30,96 @@ export const MovieRows: FC<IMovies> = (props): JSX.Element => {
           Preview
         </Text>
       </Box>
-      <Box width="40%">
-        <Text>{props.Title}</Text>
+      <Box
+        sx={{
+          width: ["80%", "80%", "80%", "80%", "70%", "45%"],
+          justifyContent: "center",
+        }}
+      >
+        <Text
+          sx={{
+            pt: "2",
+            textAlign: [
+              "center",
+              "center",
+              "center",
+              "center",
+              "center",
+              "left",
+            ],
+            fontSize: ["1", "1", "1", "2", "2", "3", "4"],
+          }}
+        >
+          {props.Title}
+        </Text>
       </Box>
-      <Box width="10%">
-        <Text textAlign="center">{props.Year}</Text>
+      <Box
+        sx={{
+          width: ["20%", "20%", "20%", "20%", "30%", "5%"],
+        }}
+      >
+        <Text
+          sx={{
+            pt: "2",
+            textAlign: [
+              "center",
+              "center",
+              "center",
+              "center",
+              "center",
+              "left",
+            ],
+            fontSize: ["1", "1", "1", "2", "2", "3", "4"],
+          }}
+        >
+          {props.Year}
+        </Text>
       </Box>
-      <Box width="15%">
-        <Text textAlign="center">Button</Text>
-      </Box>
-      <Box width="15%">
-        <Text textAlign="center">button</Text>
-      </Box>
+      <Flex
+        sx={{
+          width: ["50%", "50%", "50%", "50%", "50%", "15%"],
+          justifyContent: "center",
+        }}
+      >
+        <Button>Details</Button>
+      </Flex>
+      <Flex
+        sx={{
+          width: ["50%", "50%", "50%", "50%", "50%", "15%"],
+          justifyContent: "center",
+        }}
+      >
+        <Button height="100%">Add Favorite</Button>
+      </Flex>
     </Flex>
   );
 };
 
-export const MovieHeader: FC = (): JSX.Element => {
-  return (
-    <Flex
-      flexWrap="wrap"
-      sx={{
-        width: "100%",
-        mt: 2,
-        mb: 2,
-        borderColor: "black",
-        border: 3,
-      }}
-    >
-      <Box width="20%" />
-      <Box width="40%">
-        <Text textAlign="center">Title</Text>
-      </Box>
-      <Box width="10%">
-        <Text textAlign="center">Year</Text>
-      </Box>
-      <Box width="15%">
-        <Text textAlign="center">Details</Text>
-      </Box>
-      <Box width="15%">
-        <Text textAlign="center">Add to favorites</Text>
-      </Box>
-    </Flex>
-  );
-};
+// export const MovieHeader: FC = (): JSX.Element => {
+//   return (
+//     <Flex
+//       flexWrap="wrap"
+//       sx={{
+//         width: "100%",
+//         mt: 2,
+//         mb: 2,
+//         borderColor: "black",
+//         border: 3,
+//       }}
+//     >
+//       <Box width="20%" />
+//       <Box width="40%">
+//         <Text textAlign="center">Title</Text>
+//       </Box>
+//       <Box width="10%">
+//         <Text textAlign="center">Year</Text>
+//       </Box>
+//       <Box width="15%">
+//         <Text textAlign="center">Details</Text>
+//       </Box>
+//       <Box width="15%">
+//         <Text textAlign="center">Add to favorites</Text>
+//       </Box>
+//     </Flex>
+//   );
+// };

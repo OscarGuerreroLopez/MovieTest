@@ -5,7 +5,7 @@ import { Flex, Text } from "rebass";
 import { v4 as uuidv4 } from "uuid";
 
 import { CustomCard } from "../../components";
-import { MovieRows, MovieHeader } from "./movieRow";
+import { MovieRows } from "./movieRow";
 
 export const Movies = (): JSX.Element => {
   const { movies } = useContext(MovieContext);
@@ -32,12 +32,12 @@ export const Movies = (): JSX.Element => {
                 textAlign: "center",
               }}
             >
-              Movies
+              Movie Result:
             </Text>
           </Flex>
 
           <Flex flexWrap="wrap">
-            <MovieHeader />
+            {/* <MovieHeader /> */}
             {movies?.map((movie: IMovies) => {
               return <MovieRows {...movie} key={uuidv4()} />;
             })}
