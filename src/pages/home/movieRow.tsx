@@ -21,6 +21,7 @@ export const MovieRows: FC<IMovies> = (props): JSX.Element => {
           sx={{
             textAlign: "center",
             pt: 2,
+            cursor: "pointer",
             fontSize: ["1", "2", "3", "4", "5", "3", "4"],
           }}
           onClick={(): void => {
@@ -47,7 +48,7 @@ export const MovieRows: FC<IMovies> = (props): JSX.Element => {
               "center",
               "left",
             ],
-            fontSize: ["1", "1", "1", "2", "2", "3", "4"],
+            fontSize: ["1", "1", "1", "2", "2", "2", "3"],
           }}
         >
           {props.Title}
@@ -75,10 +76,13 @@ export const MovieRows: FC<IMovies> = (props): JSX.Element => {
           {props.Year}
         </Text>
       </Box>
+
       <Flex
         sx={{
           width: ["50%", "50%", "50%", "50%", "50%", "15%"],
           justifyContent: "center",
+          mt: [4, 4, 4, 4, 4, 0],
+          mb: [4, 4, 4, 4, 4, 0],
         }}
       >
         <Button>Details</Button>
@@ -87,9 +91,11 @@ export const MovieRows: FC<IMovies> = (props): JSX.Element => {
         sx={{
           width: ["50%", "50%", "50%", "50%", "50%", "15%"],
           justifyContent: "center",
+          mt: [4, 4, 4, 4, 4, 0],
+          mb: [4, 4, 4, 4, 4, 0],
         }}
       >
-        <Button height="100%">Add Favorite</Button>
+        <Button>Add Favorite</Button>
       </Flex>
     </Flex>
   );
