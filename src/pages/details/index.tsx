@@ -3,6 +3,7 @@ import { Flex, Text, Image, Button } from "rebass";
 import { withRouter } from "react-router";
 import { axiosFetcher, Source } from "../../utils/http";
 import { CustomCard, SearchError } from "../../components";
+import { FavMovies } from "../../utils/favMovies";
 
 const Details = withRouter(
   (props): JSX.Element => {
@@ -12,6 +13,10 @@ const Details = withRouter(
     const [errorFound, setErrorFound] = useState(false);
 
     const id = props.match.params.id;
+
+    const clickedFav = (item: string, title: string): void => {
+      FavMovies({ item, title });
+    };
 
     useEffect(() => {
       return (): void => {
@@ -106,7 +111,13 @@ const Details = withRouter(
               </Text>
             </Flex>
             <Flex justifyContent="center" m="4">
-              <Button>Add to favorites</Button>
+              <Button
+                onClick={(): void =>
+                  clickedFav(movieData.imdbID, movieData.Title)
+                }
+              >
+                Add to favorites
+              </Button>
             </Flex>
           </CustomCard>
         )}

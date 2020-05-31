@@ -2,11 +2,17 @@ import React, { FC } from "react";
 import { Flex, Box, Text, Button, Image } from "rebass";
 import { useHistory } from "react-router-dom";
 
+import { FavMovies } from "../../utils/favMovies";
+
 export const MovieRows: FC<IMovies> = (props): JSX.Element => {
   const history = useHistory();
 
   const clickedDetails = (id: string): void => {
     history.push(`/details/${id}`);
+  };
+
+  const clickedFav = (item: string, title: string): void => {
+    FavMovies({ item, title });
   };
 
   return (
@@ -89,7 +95,9 @@ export const MovieRows: FC<IMovies> = (props): JSX.Element => {
             mt: [3, 3, 3, 3, 0],
           }}
         >
-          <Button>Add to Favorites</Button>
+          <Button onClick={(): void => clickedFav(props.imdbID, props.Title)}>
+            Add to Favorites
+          </Button>
         </Flex>
       </Flex>
     </Flex>
