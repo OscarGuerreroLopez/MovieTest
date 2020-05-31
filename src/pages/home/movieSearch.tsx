@@ -1,59 +1,30 @@
-import React, {
-  useState,
-  FormEvent,
-  useContext,
-  KeyboardEvent,
-  FC,
-} from "react";
+import React, { useState, FormEvent, KeyboardEvent, FC } from "react";
 import { Text, Flex, Box, Button } from "rebass";
 import { Input } from "@rebass/forms";
 
 import { CustomCard } from "../../components";
-import { MovieContext, MovieCountContext } from "../../context";
+// import { axiosFetcher } from "../../utils/http";
+// import { MovieContext, MovieCountContext } from "../../context";
 
 interface IProps {
-  UserSearch: (params: string) => IObjectLiteral;
+  setMovieName: (name: string) => void;
+  setPageNumber: (page: string) => void;
 }
 
-export const MovieSearch: FC<IProps> = (props): JSX.Element => {
+export const MovieSearch: FC<IProps> = ({
+  setMovieName,
+  setPageNumber,
+}): JSX.Element => {
   const [movie, setMovie] = useState("");
-  const { setMovies } = useContext(MovieContext);
-  const { setMoviesCount } = useContext(MovieCountContext);
-  const [axiosError, setAxiosError] = useState(false);
-  const [noMovies, setNoMovies] = useState("");
 
   const onChange = (e: FormEvent<HTMLInputElement>): void => {
     e.preventDefault();
     setMovie(e.currentTarget.value);
   };
 
-  const noMoviesFound = (error: string): void => {
-    setNoMovies(error);
-    setMovies([]);
-  };
-
-  const MoviesFound = (data: IMovies[], moviesCount: string): void => {
-    setNoMovies("");
-    setMovies(data);
-    setMoviesCount(moviesCount);
-  };
-
   const onClick = async (): Promise<void> => {
-    const params = `&s=${movie}&type=movie`;
-
-    try {
-      const result = await props.UserSearch(params);
-      const { Response, Search, Error, totalResults } = result;
-
-      setAxiosError(false);
-
-      Response === "False"
-        ? noMoviesFound(Error)
-        : MoviesFound(Search, totalResults);
-    } catch (error) {
-      setAxiosError(true);
-      console.log(error);
-    }
+    setMovieName(movie);
+    setPageNumber("1");
   };
 
   return (
@@ -108,7 +79,7 @@ export const MovieSearch: FC<IProps> = (props): JSX.Element => {
                 if (e.keyCode === 13 || e.key === "Enter") {
                   onClick();
                 } else {
-                  setNoMovies("");
+                  setMovieName("");
                 }
               }}
             />
@@ -138,46 +109,6 @@ export const MovieSearch: FC<IProps> = (props): JSX.Element => {
             </Flex>
           </Box>
         </Flex>
-        {axiosError && (
-          <Flex justifyContent="center">
-            <Text
-              variant="osquitar.secondary"
-              sx={{
-                fontSize: ["1", "2", "2", "3", "4", "5", "5"],
-                fontWeight: "bold",
-                width: "100%",
-                textAlign: "center",
-              }}
-            >
-              There was an error fetching the movies, please check console
-            </Text>
-          </Flex>
-        )}
-        {noMovies && (
-          <Flex justifyContent="center" flexWrap="wrap">
-            <Text
-              variant="osquitar.primary"
-              sx={{
-                fontSize: ["1", "2", "2", "3", "4", "5", "5"],
-                width: "100%",
-                textAlign: "center",
-              }}
-            >
-              Search for {`"${movie}"`} returned this error: {noMovies}...
-            </Text>
-            <Text
-              sx={{
-                fontSize: ["1", "2", "2", "3", "4", "5", "5"],
-                width: "100%",
-                textAlign: "center",
-                color: "red",
-                fontWeight: "bold",
-              }}
-            >
-              Please redefine your search
-            </Text>
-          </Flex>
-        )}
       </Flex>
     </CustomCard>
   );

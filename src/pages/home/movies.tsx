@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState, KeyboardEvent } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  KeyboardEvent,
+  FC,
+} from "react";
 
 import { MovieContext, MovieCountContext } from "../../context";
 import { Flex, Text } from "rebass";
@@ -9,7 +15,11 @@ import { v4 as uuidv4 } from "uuid";
 import { CustomCard } from "../../components";
 import { MovieRows } from "./movieRow";
 
-export const Movies = (): JSX.Element => {
+interface IProps {
+  setPageNumber: (page: string) => void;
+}
+
+export const Movies: FC<IProps> = ({ setPageNumber }): JSX.Element => {
   const { movies } = useContext(MovieContext);
   const { moviesCount } = useContext(MovieCountContext);
   const [haveMovies, setHaveMovies] = useState(false);
@@ -33,6 +43,10 @@ export const Movies = (): JSX.Element => {
   useEffect(() => {
     setPageSelected("1");
   }, [numberPages]);
+
+  const changeMovies = (page: string): void => {
+    setPageNumber(page);
+  };
 
   return (
     <>
@@ -94,29 +108,19 @@ export const Movies = (): JSX.Element => {
                     width: ["20%", "20%", "20%", "20%", "48%"],
                     textAlign: "left",
                   }}
-                  // placeholder={pageSelected.toString()}
-                  // defaultValue={pageSelected.toString()}
                   onKeyDown={(e: KeyboardEvent<HTMLInputElement>): void => {
                     if (e.keyCode === 13 || e.key === "Enter") {
                       if (e.currentTarget.value > numberPages) {
                         setPageSelected(numberPages);
+                        changeMovies(numberPages);
                       } else {
                         setPageSelected(e.currentTarget.value);
+                        changeMovies(e.currentTarget.value);
                       }
                     }
                   }}
                 />
               </Flex>
-
-              {/* <Text
-                sx={{
-                  width: ["33%"],
-                  textAlign: "center",
-                  mt: 2,
-                }}
-              >
-                of {numberPages}
-              </Text> */}
             </Flex>
           </Flex>
         </CustomCard>
