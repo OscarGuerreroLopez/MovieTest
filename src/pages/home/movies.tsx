@@ -6,11 +6,7 @@ import React, {
   FC,
 } from "react";
 
-import {
-  MovieContext,
-  MovieCountContext,
-  LastSearchContext,
-} from "../../context";
+import { MovieSearchContext } from "../../context";
 import { Flex, Text } from "rebass";
 import { Input } from "@rebass/forms";
 
@@ -24,9 +20,7 @@ interface IProps {
 }
 
 export const Movies: FC<IProps> = ({ setPageNumber }): JSX.Element => {
-  const { movies } = useContext(MovieContext);
-  const { moviesCount } = useContext(MovieCountContext);
-  const { lastPage } = useContext(LastSearchContext);
+  const { movies, moviesCount, lastPage } = useContext(MovieSearchContext);
   const [haveMovies, setHaveMovies] = useState(false);
   const [numberPages, setNumberPages] = useState("0");
 

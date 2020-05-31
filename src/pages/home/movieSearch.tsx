@@ -3,8 +3,6 @@ import { Text, Flex, Box, Button } from "rebass";
 import { Input } from "@rebass/forms";
 
 import { CustomCard } from "../../components";
-// import { axiosFetcher } from "../../utils/http";
-// import { MovieContext, MovieCountContext } from "../../context";
 
 interface IProps {
   setMovieName: (name: string) => void;

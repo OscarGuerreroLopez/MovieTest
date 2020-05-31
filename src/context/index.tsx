@@ -1,45 +1,28 @@
 import { createContext, Dispatch, SetStateAction } from "react";
 
-export interface IMoviesProvider {
+export interface IMovieSearchProvider {
   movies: IMovies[];
   setMovies: Dispatch<SetStateAction<IMovies[]>>;
-}
-
-export interface IMoviesCountProvider {
   moviesCount: string;
   setMoviesCount: Dispatch<SetStateAction<string>>;
-}
-
-export interface ILastSearch {
   lastSearch: string;
   lastPage: string;
   setLastSearch: Dispatch<SetStateAction<string>>;
   setLastPage: Dispatch<SetStateAction<string>>;
 }
 
-// export interface IMoviesCountProvider {
-//   moviesCount: string;
-//   setMoviesCount: Dispatch<SetStateAction<string>>;
-// }
-
 export const initialState: IMovies[] = [];
 export const initialMoviesCount = "";
 export const initialSearch = "";
 export const initialPage = "1";
 
-export const MovieContext = createContext<IMoviesProvider>({
+export const MovieSearchContext = createContext<IMovieSearchProvider>({
   movies: initialState,
   setMovies: () => [],
-});
-
-export const MovieCountContext = createContext<IMoviesCountProvider>({
   moviesCount: initialMoviesCount,
   setMoviesCount: () => "",
-});
-
-export const LastSearchContext = createContext<ILastSearch>({
   lastSearch: initialSearch,
+  setLastSearch: () => "",
   lastPage: initialPage,
   setLastPage: () => "",
-  setLastSearch: () => "",
 });

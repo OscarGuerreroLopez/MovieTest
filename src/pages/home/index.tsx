@@ -6,21 +6,21 @@ import { MovieSearch } from "./movieSearch";
 import { Movies } from "./movies";
 import { SearchError } from "../../components";
 import { axiosFetcher, Source } from "../../utils/http";
-import {
-  MovieContext,
-  MovieCountContext,
-  LastSearchContext,
-} from "../../context";
+import { MovieSearchContext } from "../../context";
 
 const Home = (): JSX.Element => {
   const [error, setError] = useState("");
   const [errorFound, setErrorFound] = useState(false);
   const [errorString, setErrorString] = useState("");
-  const { setMovies } = useContext(MovieContext);
-  const { setMoviesCount } = useContext(MovieCountContext);
-  const { setLastSearch, lastSearch, lastPage, setLastPage } = useContext(
-    LastSearchContext,
-  );
+
+  const {
+    setMovies,
+    setMoviesCount,
+    setLastSearch,
+    lastSearch,
+    lastPage,
+    setLastPage,
+  } = useContext(MovieSearchContext);
 
   const userSearch = async (name: string, page = "1"): Promise<undefined> => {
     const searchParams = `&s=${name}&type=movie&page=${page}`;
