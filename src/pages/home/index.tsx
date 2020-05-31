@@ -4,7 +4,7 @@ import { Flex } from "rebass";
 import { Intro } from "./intro";
 import { MovieSearch } from "./movieSearch";
 import { Movies } from "./movies";
-import { SearchError } from "./searchError";
+import { SearchError } from "../../components";
 import { axiosFetcher, Source } from "../../utils/http";
 import {
   MovieContext,
@@ -14,10 +14,9 @@ import {
 
 const Home = (): JSX.Element => {
   const [error, setError] = useState("");
-
   const [errorFound, setErrorFound] = useState(false);
-
-  const { setMovies, movies } = useContext(MovieContext);
+  const [errorString, setErrorString] = useState("");
+  const { setMovies } = useContext(MovieContext);
   const { setMoviesCount } = useContext(MovieCountContext);
   const { setLastSearch, lastSearch, lastPage, setLastPage } = useContext(
     LastSearchContext,
@@ -39,6 +38,11 @@ const Home = (): JSX.Element => {
       } else {
         setError(Error);
         setErrorFound(true);
+        setErrorString(lastSearch);
+        setLastPage("1");
+        setLastSearch("");
+        setMoviesCount("0");
+        setMovies([]);
       }
 
       return;
@@ -51,10 +55,6 @@ const Home = (): JSX.Element => {
   };
 
   useEffect(() => {
-    console.log("@@@@@1111", lastPage);
-    console.log("@@@@2222", movies);
-    console.log("@@@@@33333", lastSearch);
-
     if (lastSearch) {
       userSearch(lastSearch, lastPage);
     }
@@ -75,7 +75,7 @@ const Home = (): JSX.Element => {
         setErrorFound={setErrorFound}
       />
       <Movies setPageNumber={setLastPage} />
-      {errorFound && <SearchError error={error} movie={lastSearch} />}
+      {errorFound && <SearchError error={error} movie={errorString} />}
     </Flex>
   );
 };

@@ -6,7 +6,11 @@ import React, {
   FC,
 } from "react";
 
-import { MovieContext, MovieCountContext } from "../../context";
+import {
+  MovieContext,
+  MovieCountContext,
+  LastSearchContext,
+} from "../../context";
 import { Flex, Text } from "rebass";
 import { Input } from "@rebass/forms";
 
@@ -22,9 +26,9 @@ interface IProps {
 export const Movies: FC<IProps> = ({ setPageNumber }): JSX.Element => {
   const { movies } = useContext(MovieContext);
   const { moviesCount } = useContext(MovieCountContext);
+  const { lastPage } = useContext(LastSearchContext);
   const [haveMovies, setHaveMovies] = useState(false);
   const [numberPages, setNumberPages] = useState("0");
-  const [pageSelected, setPageSelected] = useState("1");
 
   useEffect(() => {
     if (movies?.length > 0) {
@@ -39,10 +43,6 @@ export const Movies: FC<IProps> = ({ setPageNumber }): JSX.Element => {
       ? setNumberPages(Math.ceil(parseInt(moviesCount) / 10).toString())
       : 0;
   }, [moviesCount]);
-
-  useEffect(() => {
-    setPageSelected("1");
-  }, [numberPages]);
 
   const changeMovies = (page: string): void => {
     setPageNumber(page);
@@ -66,7 +66,6 @@ export const Movies: FC<IProps> = ({ setPageNumber }): JSX.Element => {
           </Flex>
 
           <Flex flexWrap="wrap">
-            {/* <MovieHeader /> */}
             {movies?.map((movie: IMovies) => {
               return <MovieRows {...movie} key={uuidv4()} />;
             })}
@@ -86,7 +85,7 @@ export const Movies: FC<IProps> = ({ setPageNumber }): JSX.Element => {
                   mr: 2,
                 }}
               >
-                Page {pageSelected} of {numberPages}
+                Page {lastPage} of {numberPages}
               </Text>
               <Flex
                 sx={{
@@ -113,10 +112,8 @@ export const Movies: FC<IProps> = ({ setPageNumber }): JSX.Element => {
                       if (
                         parseInt(e.currentTarget.value) > parseInt(numberPages)
                       ) {
-                        setPageSelected(numberPages);
                         changeMovies(numberPages);
                       } else {
-                        setPageSelected(e.currentTarget.value);
                         changeMovies(e.currentTarget.value);
                       }
                     }

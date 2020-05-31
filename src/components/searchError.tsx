@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Text, Flex } from "rebass";
 
-import { CustomCard } from "../../components";
+import { CustomCard } from ".";
 
 interface IProps {
   error: string;

@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Flex, Text, Image, Button } from "rebass";
 import { withRouter } from "react-router";
 import { axiosFetcher, Source } from "../../utils/http";
-import { CustomCard } from "../../components";
+import { CustomCard, SearchError } from "../../components";
 
 const Details = withRouter(
   (props): JSX.Element => {
     const [movieData, setMovieData] = useState<IObjectLiteral>({});
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState("");
+    const [errorFound, setErrorFound] = useState(false);
 
     const id = props.match.params.id;
 
@@ -20,11 +22,17 @@ const Details = withRouter(
     useEffect(() => {
       const searchMovie = async (): Promise<void> => {
         const searchParams = `&i=${id}`;
-        const result = await axiosFetcher(searchParams, {
-          method: "GET",
-        });
+        try {
+          const result = await axiosFetcher(searchParams, {
+            method: "GET",
+          });
 
-        setMovieData(result);
+          setMovieData(result);
+        } catch (error) {
+          console.log(error);
+          setError("Unable to fetch the movies, try again");
+          setErrorFound(true);
+        }
       };
       setIsLoading(true);
       searchMovie();
@@ -102,6 +110,7 @@ const Details = withRouter(
             </Flex>
           </CustomCard>
         )}
+        {errorFound && <SearchError error={error} movie={movieData.Title} />}
       </Flex>
     );
   },
