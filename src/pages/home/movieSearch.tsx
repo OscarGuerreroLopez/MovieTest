@@ -9,17 +9,20 @@ import { CustomCard } from "../../components";
 interface IProps {
   setMovieName: (name: string) => void;
   setPageNumber: (page: string) => void;
+  setErrorFound: (error: boolean) => void;
 }
 
 export const MovieSearch: FC<IProps> = ({
   setMovieName,
   setPageNumber,
+  setErrorFound,
 }): JSX.Element => {
   const [movie, setMovie] = useState("");
 
   const onChange = (e: FormEvent<HTMLInputElement>): void => {
     e.preventDefault();
     setMovie(e.currentTarget.value);
+    setErrorFound(false);
   };
 
   const onClick = async (): Promise<void> => {

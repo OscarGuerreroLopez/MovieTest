@@ -22,7 +22,6 @@ export const axiosFetcher = async (
       ...config,
     });
 
-    console.log("CALL MADE!+++++++++++++++++", url);
     return response.data;
   } catch (error) {
     console.error("error in axiosFetcher", error);
