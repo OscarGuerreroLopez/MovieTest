@@ -4,11 +4,12 @@ import { Input } from "@rebass/forms";
 
 import { CustomCard } from "../../components";
 import { axiosFetcher } from "../../utils/http";
-import { MovieContext } from "../../context";
+import { MovieContext, MovieCountContext } from "../../context";
 
 export const MovieSearch = (): JSX.Element => {
   const [movie, setMovie] = useState("");
   const { setMovies } = useContext(MovieContext);
+  const { setMoviesCount } = useContext(MovieCountContext);
   const [axiosError, setAxiosError] = useState(false);
   const [noMovies, setNoMovies] = useState("");
 
@@ -18,16 +19,14 @@ export const MovieSearch = (): JSX.Element => {
   };
 
   const noMoviesFound = (error: string): void => {
-    console.log("@+++++@noMoviesFound", error);
-
     setNoMovies(error);
     setMovies([]);
   };
 
-  const MoviesFound = (data: IMovies[]): void => {
-    console.log("@+++++@MoviesFound");
+  const MoviesFound = (data: IMovies[], moviesCount: string): void => {
     setNoMovies("");
     setMovies(data);
+    setMoviesCount(moviesCount);
   };
 
   const onClick = async (): Promise<void> => {
@@ -37,10 +36,14 @@ export const MovieSearch = (): JSX.Element => {
         method: "GET",
       });
 
-      const { Response, Search, Error } = result;
+      const { Response, Search, Error, totalResults } = result;
 
       setAxiosError(false);
-      Response === "False" ? noMoviesFound(Error) : MoviesFound(Search);
+      console.log("@+++++++++++@", totalResults);
+
+      Response === "False"
+        ? noMoviesFound(Error)
+        : MoviesFound(Search, totalResults);
     } catch (error) {
       setAxiosError(true);
       console.log(error);
