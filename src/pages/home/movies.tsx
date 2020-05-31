@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, KeyboardEvent } from "react";
 
 import { MovieContext, MovieCountContext } from "../../context";
 import { Flex, Text } from "rebass";
@@ -13,8 +13,8 @@ export const Movies = (): JSX.Element => {
   const { movies } = useContext(MovieContext);
   const { moviesCount } = useContext(MovieCountContext);
   const [haveMovies, setHaveMovies] = useState(false);
-  const [numberPages, setNumberPages] = useState(0);
-  const [pageSelected, setPageSelected] = useState(1);
+  const [numberPages, setNumberPages] = useState("0");
+  const [pageSelected, setPageSelected] = useState("1");
 
   useEffect(() => {
     if (movies?.length > 0) {
@@ -25,8 +25,16 @@ export const Movies = (): JSX.Element => {
   }, [movies]);
 
   useEffect(() => {
-    moviesCount ? setNumberPages(Math.ceil(parseInt(moviesCount) / 10)) : 0;
+    moviesCount
+      ? setNumberPages(Math.ceil(parseInt(moviesCount) / 10).toString())
+      : 0;
   }, [moviesCount]);
+
+  useEffect(() => {
+    console.log("#//////////# Movies", movies?.length);
+
+    setPageSelected("1");
+  }, [numberPages]);
 
   return (
     <>
@@ -53,28 +61,56 @@ export const Movies = (): JSX.Element => {
           </Flex>
           <Flex justifyContent="center" flexWrap="wrap" mt="3" mb="5">
             <Flex
+              flexWrap="wrap"
               sx={{
-                width: ["80%", "80%", "80%", "70%", "60%", "40%"],
+                width: ["80%", "80%", "80%", "70%", "60%"],
               }}
             >
               <Text
                 sx={{
-                  width: ["33%"],
+                  width: ["100%", "100%", "100%", "100%", "50%"],
                   textAlign: "center",
                   mt: 2,
+                  mr: 2,
                 }}
               >
-                Page{" "}
+                Page {pageSelected} of {numberPages}
               </Text>
-              <Input
+              <Flex
                 sx={{
-                  width: ["33%"],
-                  textAlign: "center",
+                  width: ["100%", "100%", "100%", "100%", "48%"],
                 }}
-                value={pageSelected}
-              />
+              >
+                <Text
+                  sx={{
+                    width: "50%",
+                    textAlign: "right",
+                    mt: 2,
+                    mr: 2,
+                  }}
+                >
+                  Go to page:
+                </Text>
+                <Input
+                  sx={{
+                    width: ["20%", "20%", "20%", "20%", "48%"],
+                    textAlign: "left",
+                  }}
+                  // placeholder={pageSelected.toString()}
+                  // defaultValue={pageSelected.toString()}
+                  onKeyDown={(e: KeyboardEvent<HTMLInputElement>): void => {
+                    if (e.keyCode === 13 || e.key === "Enter") {
+                      if (e.currentTarget.value > numberPages) {
+                        setPageSelected(numberPages);
+                      } else {
+                        setPageSelected(e.currentTarget.value);
+                      }
+                    }
+                  }}
+                />
+              </Flex>
 
-              <Text
+              {/* <Text
                 sx={{
                   width: ["33%"],
                   textAlign: "center",
@@ -82,7 +118,7 @@ export const Movies = (): JSX.Element => {
                 }}
               >
                 of {numberPages}
-              </Text>
+              </Text> */}
             </Flex>
           </Flex>
         </CustomCard>
