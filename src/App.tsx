@@ -11,11 +11,16 @@ import {
   initialMoviesCount,
   IMoviesProvider,
   IMoviesCountProvider,
+  ILastSearch,
+  initialSearch,
+  LastSearchContext,
 } from "./context";
 
 const App: FC = () => {
   const [movies, setMovies] = useState<IMovies[]>(initialState);
   const [moviesCount, setMoviesCount] = useState<string>(initialMoviesCount);
+  const [lastSearch, setLastSearch] = useState<string>(initialSearch);
+  const [lastPage, setLastPage] = useState<string>(initialSearch);
 
   const providerMoviesValue: IMoviesProvider = useMemo(
     () => ({ movies, setMovies }),
@@ -27,11 +32,18 @@ const App: FC = () => {
     [moviesCount, setMoviesCount],
   );
 
+  const providerLastSearch: ILastSearch = useMemo(
+    () => ({ lastSearch, setLastSearch, lastPage, setLastPage }),
+    [lastSearch, setLastSearch, lastPage, setLastPage],
+  );
+
   return (
     <ThemeProvider theme={theme}>
       <MovieContext.Provider value={providerMoviesValue}>
         <MovieCountContext.Provider value={providerMoviesCountValue}>
-          <Router />
+          <LastSearchContext.Provider value={providerLastSearch}>
+            <Router />
+          </LastSearchContext.Provider>
         </MovieCountContext.Provider>
       </MovieContext.Provider>
     </ThemeProvider>
