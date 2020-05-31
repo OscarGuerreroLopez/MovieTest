@@ -1,137 +1,97 @@
 import React, { FC } from "react";
-import { Flex, Box, Text, Button } from "rebass";
+import { Flex, Box, Text, Button, Image } from "rebass";
 import { useHistory } from "react-router-dom";
 
 export const MovieRows: FC<IMovies> = (props): JSX.Element => {
   const history = useHistory();
 
-  const clickedDetails = (): void => {
-    history.push("/details");
+  const clickedDetails = (id: string): void => {
+    history.push(`/details/${id}`);
   };
+
   return (
     <Flex
-      flexWrap="wrap"
       sx={{
-        width: "100%",
+        flexWrap: "wrap",
         mt: 2,
         borderRadius: 2,
         boxShadow: "0 0 16px rgba(0, 0, 0, .25)",
+        justifyContent: "center",
+        width: "100%",
       }}
     >
-      <Box
+      <Text
         sx={{
-          width: ["100%", "100%", "100%", "100%", "100%", "20%"],
+          textAlign: "center",
+          pt: 2,
+          cursor: "pointer",
+          fontWeight: "bold",
+          fontSize: ["1", "2", "3", "4", "5", "5", "6"],
+          width: "100%",
         }}
       >
+        {props.Title}
+      </Text>
+      <Flex
+        sx={{
+          width: ["100%"],
+          justifyContent: "center",
+        }}
+      >
+        <Box
+          sx={{
+            width: ["100%", "100%", "100%", "100%", "100%", "25%"],
+          }}
+        >
+          <Image
+            src={
+              props.Poster !== "N/A"
+                ? props.Poster
+                : "https://sainfoinc.com/wp-content/uploads/2018/02/image-not-available.jpg"
+            }
+            sx={{
+              width: ["100%"],
+              borderRadius: 8,
+              alignItems: "center",
+            }}
+          />
+        </Box>
+      </Flex>
+      <Flex justifyContent="center" flexWrap="wrap">
         <Text
           sx={{
             textAlign: "center",
             pt: 2,
             cursor: "pointer",
-            fontSize: ["1", "2", "3", "4", "5", "3", "4"],
-          }}
-          onClick={(): void => {
-            console.log(props.Poster);
-          }}
-        >
-          Preview
-        </Text>
-      </Box>
-      <Box
-        sx={{
-          width: ["80%", "80%", "80%", "80%", "70%", "45%"],
-          justifyContent: "center",
-        }}
-      >
-        <Text
-          sx={{
-            pt: "2",
-            textAlign: [
-              "center",
-              "center",
-              "center",
-              "center",
-              "center",
-              "left",
-            ],
-            fontSize: ["1", "1", "1", "2", "2", "2", "3"],
-          }}
-        >
-          {props.Title}
-        </Text>
-      </Box>
-      <Box
-        sx={{
-          width: ["20%", "20%", "20%", "20%", "30%", "5%"],
-        }}
-      >
-        <Text
-          sx={{
-            pt: "2",
-            textAlign: [
-              "center",
-              "center",
-              "center",
-              "center",
-              "center",
-              "left",
-            ],
-            fontSize: ["1", "1", "1", "2", "2", "3", "4"],
+            fontWeight: "bold",
+            fontSize: ["1", "2", "3", "4", "5", "5", "6"],
+            width: "100%",
           }}
         >
           {props.Year}
         </Text>
-      </Box>
-
-      <Flex
-        sx={{
-          width: ["50%", "50%", "50%", "50%", "50%", "15%"],
-          justifyContent: "center",
-          mt: [4, 4, 4, 4, 4, 0],
-          mb: [4, 4, 4, 4, 4, 0],
-        }}
-      >
-        <Button onClick={clickedDetails}>Details</Button>
       </Flex>
-      <Flex
-        sx={{
-          width: ["50%", "50%", "50%", "50%", "50%", "15%"],
-          justifyContent: "center",
-          mt: [4, 4, 4, 4, 4, 0],
-          mb: [4, 4, 4, 4, 4, 0],
-        }}
-      >
-        <Button>Add Favorite</Button>
+      <Flex justifyContent="center" width="100%" flexWrap="wrap">
+        <Flex
+          sx={{
+            width: ["100%", "100%", "100%", "100%", "50%"],
+            justifyContent: "center",
+          }}
+        >
+          <Button onClick={(): void => clickedDetails(props.imdbID)}>
+            Details
+          </Button>
+        </Flex>
+        <Flex
+          sx={{
+            width: ["100%", "100%", "100%", "100%", "50%"],
+            justifyContent: "center",
+            mt: [3, 3, 3, 3, 0],
+          }}
+        >
+          <Button>Add to Favorites</Button>
+        </Flex>
       </Flex>
     </Flex>
   );
 };
-
-// export const MovieHeader: FC = (): JSX.Element => {
-//   return (
-//     <Flex
-//       flexWrap="wrap"
-//       sx={{
-//         width: "100%",
-//         mt: 2,
-//         mb: 2,
-//         borderColor: "black",
-//         border: 3,
-//       }}
-//     >
-//       <Box width="20%" />
-//       <Box width="40%">
-//         <Text textAlign="center">Title</Text>
-//       </Box>
-//       <Box width="10%">
-//         <Text textAlign="center">Year</Text>
-//       </Box>
-//       <Box width="15%">
-//         <Text textAlign="center">Details</Text>
-//       </Box>
-//       <Box width="15%">
-//         <Text textAlign="center">Add to favorites</Text>
-//       </Box>
-//     </Flex>
-//   );
-// };

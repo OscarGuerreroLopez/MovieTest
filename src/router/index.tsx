@@ -11,7 +11,7 @@ const Router = (): JSX.Element => {
       <Suspense fallback={<Loader />}>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/details" exact component={Details} />
+          <Route path="/details/:id" exact component={Details} />
 
           <Route component={Home} />
         </Switch>

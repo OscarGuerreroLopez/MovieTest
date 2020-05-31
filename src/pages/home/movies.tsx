@@ -110,7 +110,9 @@ export const Movies: FC<IProps> = ({ setPageNumber }): JSX.Element => {
                   }}
                   onKeyDown={(e: KeyboardEvent<HTMLInputElement>): void => {
                     if (e.keyCode === 13 || e.key === "Enter") {
-                      if (e.currentTarget.value > numberPages) {
+                      if (
+                        parseInt(e.currentTarget.value) > parseInt(numberPages)
+                      ) {
                         setPageSelected(numberPages);
                         changeMovies(numberPages);
                       } else {
