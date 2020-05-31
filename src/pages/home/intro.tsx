@@ -3,7 +3,7 @@ import { Text, Flex } from "rebass";
 
 import { CustomCard } from "../../components";
 
-const fontSize = ["1", "2", "2", "3", "4", "5"];
+const fontSize = ["1", "2", "2", "3", "3", "4"];
 
 export const Intro = (): JSX.Element => {
   return (
@@ -22,13 +22,51 @@ export const Intro = (): JSX.Element => {
             fontSize,
           }}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          Welcome to the movie viewer page. To start searching for movies,
+          please enter the title in the input box below and hit enter or the
+          Search button.
+        </Text>
+        <br />
+        <Text
+          sx={{
+            fontSize,
+          }}
+        >
+          Once you get the results, you can scroll all the way down to keep on
+          searching for more movies. Just enter the page number you want and hit
+          enter, the app will display the new search results.
+        </Text>
+        <Text
+          sx={{
+            fontSize,
+          }}
+        >
+          You can add favourite movies to the local storage or see more details
+          about a movie. Unfortunately I didn’t have a lot of time to work on
+          this, but I tried to make the site as responsive as I could for the
+          amount of time I was able to dedicate. I used theme-ui and rebass
+        </Text>
+        <br />
+        <Text
+          sx={{
+            fontSize,
+          }}
+        >
+          For the requests I used Axios, with a cancel token in case that the
+          user changes pages before the axios response arrives. Please don’t
+          forget to add the .env file following the .example.env
+        </Text>
+        <Text
+          sx={{
+            fontSize,
+          }}
+        >
+          Also, instead of using redux or mobx to store the data I decided to go
+          with the context instead, basically to try to finish it on time.
+          Everything I did is arguable, of course, and always eager to get
+          feedback, just bear in mind that this is was done over this weekend
+          whenever I was able to scape from other tasks I have :-) Please feel
+          free to contact me if you have any questions
         </Text>
       </Flex>
     </CustomCard>
