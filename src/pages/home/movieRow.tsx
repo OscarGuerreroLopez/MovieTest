@@ -1,7 +1,13 @@
 import React, { FC } from "react";
 import { Flex, Box, Text, Button } from "rebass";
+import { useHistory } from "react-router-dom";
 
 export const MovieRows: FC<IMovies> = (props): JSX.Element => {
+  const history = useHistory();
+
+  const clickedDetails = (): void => {
+    history.push("/details");
+  };
   return (
     <Flex
       flexWrap="wrap"
@@ -85,7 +91,7 @@ export const MovieRows: FC<IMovies> = (props): JSX.Element => {
           mb: [4, 4, 4, 4, 4, 0],
         }}
       >
-        <Button>Details</Button>
+        <Button onClick={clickedDetails}>Details</Button>
       </Flex>
       <Flex
         sx={{

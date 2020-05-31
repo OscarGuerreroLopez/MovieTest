@@ -5,7 +5,7 @@ import { Intro } from "./intro";
 import { MovieSearch } from "./movieSearch";
 import { Movies } from "./movies";
 import { SearchError } from "./searchError";
-import { axiosFetcher } from "../../utils/http";
+import { axiosFetcher, Source } from "../../utils/http";
 import { MovieContext, MovieCountContext } from "../../context";
 
 const Home = (): JSX.Element => {
@@ -14,8 +14,8 @@ const Home = (): JSX.Element => {
   const [pageNumber, setPageNumber] = useState("1");
   const [errorFound, setErrorFound] = useState(false);
 
-  const { setMovies } = useContext(MovieContext);
-  const { setMoviesCount } = useContext(MovieCountContext);
+  const { setMovies, movies } = useContext(MovieContext);
+  const { setMoviesCount, moviesCount } = useContext(MovieCountContext);
 
   const userSearch = async (name: string, page = "1"): Promise<undefined> => {
     const searchParams = `&s=${name}&type=movie&page=${page}`;
@@ -30,6 +30,10 @@ const Home = (): JSX.Element => {
       if (Response !== "False") {
         setMovies(Search);
         setMoviesCount(totalResults);
+        setErrorFound(false);
+      } else if (Response === "AxiosCancel") {
+        setMovies(movies);
+        setMoviesCount(moviesCount);
         setErrorFound(false);
       } else {
         setError(Error);
@@ -47,10 +51,20 @@ const Home = (): JSX.Element => {
 
   useEffect(() => {
     console.log("11111", movieName);
+    console.log("44444", movies);
+    console.log("55555", moviesCount);
+
     if (movieName) {
       userSearch(movieName, pageNumber);
     }
   }, [movieName, pageNumber]);
+
+  useEffect(() => {
+    return (): void => {
+      Source.cancel("Dont need you anymore thanks");
+      console.log("3333333333Unmount ");
+    };
+  }, []);
 
   return (
     <Flex justifyContent="center" flexWrap="wrap">

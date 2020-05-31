@@ -1,18 +1,22 @@
-import axios, { AxiosRequestConfig } from "axios";
+// import { useContext } from "react";
+import axios, { AxiosRequestConfig, CancelTokenSource } from "axios";
 import { EnvVars } from "./validateEnvs";
 
-const headerConfig = (token: string, cancelToken = null): {} =>
-  cancelToken
-    ? { headers: { Authorization: `Bearer ${token}` }, cancelToken }
-    : { headers: { Authorization: `Bearer ${token}` } };
+export let Source: CancelTokenSource;
+
+const newCancelToken = (): void => {
+  Source = axios.CancelToken.source();
+};
 
 export const axiosFetcher = async (
   url: string,
   config: AxiosRequestConfig = {},
-  token?: string | undefined,
+  // token?: string | undefined,
 ): Promise<IObjectLiteral> => {
+  newCancelToken();
   try {
-    token && Object.assign(config, headerConfig(token));
+    config = { ...config, cancelToken: Source.token };
+
     const { method } = config;
 
     const response = await axios({
@@ -24,7 +28,13 @@ export const axiosFetcher = async (
 
     return response.data;
   } catch (error) {
-    console.error("error in axiosFetcher", error);
-    throw error;
+    if (axios.isCancel(error)) {
+      console.log("Hola Majete, Axios se cancelo");
+      // return { Search: movies, totalResults: moviesCount, Response: "True" };
+      return { Response: "AxiosCancel" };
+    } else {
+      console.error("error in axiosFetcher", error);
+      throw error;
+    }
   }
 };
