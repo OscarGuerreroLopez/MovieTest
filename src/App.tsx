@@ -4,17 +4,7 @@ import { ThemeProvider } from "theme-ui";
 import { theme } from "./styles";
 
 import Router from "./router";
-// import {
-//   MovieContext,
-//   MovieCountContext,
-//   initialState,
-//   initialMoviesCount,
-//   IMoviesProvider,
-//   IMoviesCountProvider,
-//   ILastSearch,
-//   initialSearch,
-//   LastSearchContext,
-// } from "./context";
+
 import {
   initialState,
   initialMoviesCount,
@@ -29,21 +19,6 @@ const App: FC = () => {
   const [moviesCount, setMoviesCount] = useState<string>(initialMoviesCount);
   const [lastSearch, setLastSearch] = useState<string>(initialSearch);
   const [lastPage, setLastPage] = useState<string>(initialPage);
-
-  // const providerMoviesValue: IMoviesProvider = useMemo(
-  //   () => ({ movies, setMovies }),
-  //   [movies, setMovies],
-  // );
-
-  // const providerMoviesCountValue: IMoviesCountProvider = useMemo(
-  //   () => ({ moviesCount, setMoviesCount }),
-  //   [moviesCount, setMoviesCount],
-  // );
-
-  // const providerLastSearch: ILastSearch = useMemo(
-  //   () => ({ lastSearch, setLastSearch, lastPage, setLastPage }),
-  //   [lastSearch, setLastSearch, lastPage, setLastPage],
-  // );
 
   const providerMovieSearch: IMovieSearchProvider = useMemo(
     () => ({
