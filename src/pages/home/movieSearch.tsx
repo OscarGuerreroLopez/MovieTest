@@ -1,12 +1,21 @@
-import React, { useState, FormEvent, useContext, KeyboardEvent } from "react";
+import React, {
+  useState,
+  FormEvent,
+  useContext,
+  KeyboardEvent,
+  FC,
+} from "react";
 import { Text, Flex, Box, Button } from "rebass";
 import { Input } from "@rebass/forms";
 
 import { CustomCard } from "../../components";
-import { axiosFetcher } from "../../utils/http";
 import { MovieContext, MovieCountContext } from "../../context";
 
-export const MovieSearch = (): JSX.Element => {
+interface IProps {
+  UserSearch: (params: string) => IObjectLiteral;
+}
+
+export const MovieSearch: FC<IProps> = (props): JSX.Element => {
   const [movie, setMovie] = useState("");
   const { setMovies } = useContext(MovieContext);
   const { setMoviesCount } = useContext(MovieCountContext);
@@ -31,15 +40,12 @@ export const MovieSearch = (): JSX.Element => {
 
   const onClick = async (): Promise<void> => {
     const params = `&s=${movie}&type=movie`;
-    try {
-      const result = await axiosFetcher(params, {
-        method: "GET",
-      });
 
+    try {
+      const result = await props.UserSearch(params);
       const { Response, Search, Error, totalResults } = result;
 
       setAxiosError(false);
-      console.log("@+++++++++++@", totalResults);
 
       Response === "False"
         ? noMoviesFound(Error)

@@ -31,8 +31,6 @@ export const Movies = (): JSX.Element => {
   }, [moviesCount]);
 
   useEffect(() => {
-    console.log("#//////////# Movies", movies?.length);
-
     setPageSelected("1");
   }, [numberPages]);
 
