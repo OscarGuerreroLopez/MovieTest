@@ -22,9 +22,9 @@ export const Intro = (): JSX.Element => {
             fontSize,
           }}
         >
-          Welcome to the movie viewer page. To start searching for movies,
-          please enter the title in the input box below and hit enter or the
-          Search button.
+          Bienvenido a la prueba de buscador de películas. To start searching
+          for movies, please enter the title in the input box below and hit
+          enter or the Search button.
         </Text>
         <br />
         <Text
@@ -43,8 +43,8 @@ export const Intro = (): JSX.Element => {
         >
           You can add favourite movies to the local storage or see more details
           about a movie. Unfortunately I didn’t have a lot of time to work on
-          this, but I tried to make the site as responsive as I could for the
-          amount of time I was able to dedicate. I used theme-ui and rebass
+          this, but I have tried to make the site as responsive as I could for
+          the amount of time I was able to dedicate. I used theme-ui and rebass
         </Text>
         <br />
         <Text
@@ -54,7 +54,7 @@ export const Intro = (): JSX.Element => {
         >
           For the requests I used Axios, with a cancel token in case that the
           user changes pages before the axios response arrives. Please don’t
-          forget to add the .env file following the .example.env
+          forget to add the .env file following the .env.example
         </Text>
         <Text
           sx={{
