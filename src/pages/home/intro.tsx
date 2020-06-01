@@ -17,6 +17,8 @@ export const Intro = (): JSX.Element => {
         >
           MOVIE VIEWER
         </Text>
+      </Flex>
+      <Flex flexWrap="wrap">
         <Text
           sx={{
             fontSize,
@@ -46,7 +48,7 @@ export const Intro = (): JSX.Element => {
           this, but I have tried to make the site as responsive as I could for
           the amount of time I was able to dedicate. I used theme-ui and rebass
         </Text>
-        <br />
+
         <Text
           sx={{
             fontSize,
