@@ -68,6 +68,17 @@ export const Intro = (): JSX.Element => {
           whenever I was able to scape from other tasks I have :-) Please feel
           free to contact me if you have any questions
         </Text>
+        <Text
+          sx={{
+            fontSize,
+          }}
+        >
+          Al final no me dio tiempo a hacer mas, espero que esto sirva para
+          evaluar, si acaso es totalmente necesario el inicio de sesión usuarios
+          y almacenaje en sesión storage intento tenerlo a lo largo de esta
+          semana. Para poder ganar tiempo la configuración de web pack la saque
+          de create-react-app y la toque un poco
+        </Text>
       </Flex>
     </CustomCard>
   );
